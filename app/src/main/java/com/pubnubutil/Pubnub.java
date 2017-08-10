@@ -284,32 +284,35 @@ public class Pubnub {
                         !pubNubParam.getDialog().isShowing()) {
                     pubNubParam.getDialog().show();
                 }
-                sPubnub.history()
-                        .channel(pubNubParam.getChannels()[0])
-                        .count(pubNubParam.getCount() > 100 ? 100 : pubNubParam.getCount())
-                        .includeTimetoken(pubNubParam.isIncludeTimeToken())
-                        .reverse(pubNubParam.isReverse())
-                        .start(pubNubParam.getStart() > 0L ? pubNubParam.getStart() : null)
-                        .end(pubNubParam.getEnd() > 0L ? pubNubParam.getEnd() : null)
-                        .async(new PNCallback<PNHistoryResult>() {
-                            @Override
-                            public void onResponse(PNHistoryResult result, PNStatus status) {
-                                if (pubNubParam.getDialog() != null
-                                        && pubNubParam.getDialog().isShowing()) {
-                                    pubNubParam.getDialog().dismiss();
-                                }
-                                if (status.isError()) {
-                                    // handle error
-                                    if (BuildConfig.DEBUG) {
-                                        Log.d(getClass().getSimpleName(), "Publish:" + status.toString());
+                final int size = pubNubParam.getChannels().length;
+                for (int i = 0; i < size; i++) {
+                    sPubnub.history()
+                            .channel(pubNubParam.getChannels()[i])
+                            .count(pubNubParam.getCount() > 100 ? 100 : pubNubParam.getCount())
+                            .includeTimetoken(pubNubParam.isIncludeTimeToken())
+                            .reverse(pubNubParam.isReverse())
+                            .start(pubNubParam.getStart() > 0L ? pubNubParam.getStart() : null)
+                            .end(pubNubParam.getEnd() > 0L ? pubNubParam.getEnd() : null)
+                            .async(new PNCallback<PNHistoryResult>() {
+                                @Override
+                                public void onResponse(PNHistoryResult result, PNStatus status) {
+                                    if (pubNubParam.getDialog() != null
+                                            && pubNubParam.getDialog().isShowing()) {
+                                        pubNubParam.getDialog().dismiss();
                                     }
-                                    return;
+                                    if (status.isError()) {
+                                        // handle error
+                                        if (BuildConfig.DEBUG) {
+                                            Log.d(getClass().getSimpleName(), "Publish:" + status.toString());
+                                        }
+                                        return;
+                                    }
+                                    if (pubNubParam.getListener() != null) {
+                                        pubNubParam.getListener().onSuccess(status.toString(), result);
+                                    }
                                 }
-                                if (pubNubParam.getListener() != null) {
-                                    pubNubParam.getListener().onSuccess(status.toString(), result);
-                                }
-                            }
-                        });
+                            });
+                }
                 break;
             case HERE_NOW:
                 sPubnub.hereNow()
