@@ -32,7 +32,7 @@ public class PubnubConfiguration implements Serializable {
     public static class Builder {
         private PubnubConfiguration pubnubConfiguration;
 
-        private Builder() {
+        public Builder() {
             pubnubConfiguration = new PubnubConfiguration();
         }
 
