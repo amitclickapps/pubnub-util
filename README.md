@@ -81,7 +81,7 @@
         List<String> list = PubNubManager.with(this, PubNubParam.Event.SUB_LIST, pubnubConfiguration)
                 .getSubscribedList();
 ```
-### PubnubManager unSubscribeAllChannel
+### PubnubManager history
 ```
         String[] channel = new String[]{"channel1"};
         PubNubParam pubNubParam = PubNubManager.with(this, PubNubParam.Event.CHAT_HISTORY, pubnubConfiguration)
