@@ -57,15 +57,15 @@ public class Pubnub {
             synchronized (Pubnub.class) {
                 if (sPubnub == null) {
                     PNConfiguration pnConfiguration = new PNConfiguration();
-                    pnConfiguration.setSubscribeKey(pubNubParam.getSubscribe_key());
-                    pnConfiguration.setPublishKey(pubNubParam.getPublish_key());
+                    pnConfiguration.setSubscribeKey(pubNubParam.getPubnubConfiguration().getSubscribe_key());
+                    pnConfiguration.setPublishKey(pubNubParam.getPubnubConfiguration().getPublish_key());
                     pnConfiguration.setSecure(false);
                     sPubnub = new com.pubnub.api.PubNub(pnConfiguration);
                     sPubnub.addListener(new PubNubCallback(pubNubParam));
                 }
             }
         }
-        if (pubNubParam.isEnableGCM()) {
+        if (pubNubParam.getPubnubConfiguration().isEnableGCM()) {
             gcmRegister(pubNubParam);
         } else {
             //unRegisterInBackground(pubNubParam);
