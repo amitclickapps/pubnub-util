@@ -319,10 +319,6 @@ public class PubNubParam implements Serializable {
             return this;
         }
 
-        public PubNubParam getParam() {
-            return pubNubParam;
-        }
-
         /**
          * Build.
          */
