@@ -186,6 +186,7 @@ public class PubNubParam implements Serializable {
             pubNubParam.event = event;
             pubNubParam.pubnubConfiguration = pubnubConfiguration;
             PubNubConstant.BROADCAST = context.getPackageName() + ".pubnub";
+            PubNubConstant.LOCAL_BROADCAST = context.getPackageName() + ".local.pubnub";
         }
 
         /**
@@ -202,6 +203,7 @@ public class PubNubParam implements Serializable {
             pubNubParam.event = event;
             pubNubParam.pubnubConfiguration = pubnubConfiguration;
             PubNubConstant.BROADCAST = context.getPackageName() + ".pubnub";
+            PubNubConstant.LOCAL_BROADCAST = context.getPackageName() + ".local.pubnub";
         }
 
         /**
