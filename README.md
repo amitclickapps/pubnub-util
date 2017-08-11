@@ -102,6 +102,46 @@
                 .build();
 ```
 
+### Following Points have to take care before using this
+--------
+#### Whenever PushNotification received this broadcast notified
+```
+<!--  Broadcast receiver for PubNub Message -->
+        <receiver android:name="NameOfBroadcast">
+            <intent-filter>
+                <action android:name="yourpackageName.pubnub" />
+            </intent-filter>
+        </receiver>
+```
+#### When Internet on/off this broadcast notified here have to subscribe all channel again. Because when internet off all channels are auto unSubscribed. For Subscribe again Either use Intent Service from BroadCastReceiver
+```
+<receiver android:name=".InternetBraodcast">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+```
+#### If need Local Broadcast on specific screen use below code
+```
+private BroadcastReceiver localBroadCast= new BroadcastReceiver() {
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+
+    }
+};
+```
+#### Register
+```
+IntentFilter intentFilter = new IntentFilter(PubNubConstant.LOCAL_BROADCAST);
+LocalBroadcastManager.getInstance(this).registerReceiver(localBroadCast, intentFilter);
+```
+
+
+#### UnRegister
+```
+LocalBroadcastManager.getInstance(this).unregisterReceiver(localBroadCast);
+```
 Download
 --------
 Add the JitPack repository to your root build.gradle:
