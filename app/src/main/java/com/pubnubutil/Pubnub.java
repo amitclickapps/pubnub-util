@@ -485,7 +485,7 @@ public class Pubnub {
                 // Local Broadcast
                 //send broadcast for application
                 LocalBroadcastManager.getInstance(pubNubParam.getContext())
-                        .sendBroadcast(new Intent(PubNubConstant.BROADCAST)
+                        .sendBroadcast(new Intent(PubNubConstant.LOCAL_BROADCAST)
                                 .putExtra(PubNubConstant.BUNDLE_MESSAGE, message.getMessage().toString())
                                 .putExtra(PubNubConstant.BUNDLE_CHANNEL, message.getChannel()));
 

@@ -14,6 +14,7 @@ public class PubNubConstant {
      * The Broadcast
      */
     public static String BROADCAST = "";
+    public static String LOCAL_BROADCAST = "";
 
     public static final String CHAT_PREFS = "pubnubPref";
     public static final String GCM_REG_ID = "gcm_reg_id";
