@@ -1,6 +1,7 @@
 PubnubUtil ![](https://jitpack.io/v/amitclickapps/pubnub-util.svg?style=flat-square)
 ------
 ### PubnubConfiguration
+#### If gcm enable then add gcm key in pubnub console
 ```
         new PubnubConfiguration.Builder()
                 .keys("publish_key", "subscribe_key")
@@ -10,7 +11,7 @@ PubnubUtil ![](https://jitpack.io/v/amitclickapps/pubnub-util.svg?style=flat-squ
 ### PubnubManager Subscribe
 ```
         String[] channel = new String[]{"channel1", "channel2"};
-        PubNubParam pubNubParam = PubNubManager.with(this, PubNubParam.Event.SUB, pubnubConfiguration)
+        PubNubParam pubNubParam = PubNubManager.with(this, PubNubParam.Event.SUB)
                 .channels(channel)
                 .callback(new PubNubParam.OnPushMessageListener() {
                     @Override
@@ -28,7 +29,7 @@ PubnubUtil ![](https://jitpack.io/v/amitclickapps/pubnub-util.svg?style=flat-squ
 ### PubnubManager publish
 ```
         String[] channel = new String[]{"channel1", "channel2"};
-        PubNubParam pubNubParam = PubNubManager.with(this, PubNubParam.Event.PUB, pubnubConfiguration)
+        PubNubParam pubNubParam = PubNubManager.with(this, PubNubParam.Event.PUB)
                 .channels(channel)
                 .message("pojoModel")
                 .callback(new PubNubParam.OnPushMessageListener() {
@@ -47,7 +48,7 @@ PubnubUtil ![](https://jitpack.io/v/amitclickapps/pubnub-util.svg?style=flat-squ
 ### PubnubManager unSubscribe Channel
 ```
         String[] channel = new String[]{"channel1", "channel2"};
-        PubNubParam pubNubParam = PubNubManager.with(this, PubNubParam.Event.UNSUB, pubnubConfiguration)
+        PubNubParam pubNubParam = PubNubManager.with(this, PubNubParam.Event.UNSUB)
                 .channels(channel)
                 .callback(new PubNubParam.OnPushMessageListener() {
                     @Override
@@ -64,7 +65,7 @@ PubnubUtil ![](https://jitpack.io/v/amitclickapps/pubnub-util.svg?style=flat-squ
 ```
 ### PubnubManager unSubscribeAllChannel
 ```
-        PubNubParam pubNubParam = PubNubManager.with(this, PubNubParam.Event.UNSUBALL, pubnubConfiguration)
+        PubNubParam pubNubParam = PubNubManager.with(this, PubNubParam.Event.UNSUBALL)
                 .callback(new PubNubParam.OnPushMessageListener() {
                     @Override
                     public void onSuccess(String channel, Object data) {
@@ -80,13 +81,14 @@ PubnubUtil ![](https://jitpack.io/v/amitclickapps/pubnub-util.svg?style=flat-squ
 ```
 ### PubnubManager SubscribedList
 ```
-        List<String> list = PubNubManager.with(this, PubNubParam.Event.SUB_LIST, pubnubConfiguration)
+        List<String> list = PubNubManager.with(this, PubNubParam.Event.SUB_LIST)
                 .getSubscribedList();
 ```
 ### PubnubManager history
+#### To enable history Storage & Playback in Pubnub
 ```
         String[] channel = new String[]{"channel1"};
-        PubNubParam pubNubParam = PubNubManager.with(this, PubNubParam.Event.CHAT_HISTORY, pubnubConfiguration)
+        PubNubParam pubNubParam = PubNubManager.with(this, PubNubParam.Event.CHAT_HISTORY)
                 .channels(channel)
                 .progressDialog("ProgressDailogShowLoader")
                 .callback(new PubNubParam.OnPushMessageListener() {
