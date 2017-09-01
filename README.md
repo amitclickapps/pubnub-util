@@ -1,3 +1,5 @@
+PubnubUtil ![](https://jitpack.io/v/amitclickapps/pubnub-util.svg?style=flat-square)
+------
 ### PubnubConfiguration
 ```
         PubnubConfiguration pubnubConfiguration = new PubnubConfiguration.Builder()
@@ -144,7 +146,7 @@ LocalBroadcastManager.getInstance(this).unregisterReceiver(localBroadCast);
 ```
 Download
 --------
-Add the JitPack repository to your root build.gradle:
+Add the JitPack repository to your root build.gradle: ![](https://jitpack.io/v/amitclickapps/pubnub-util.svg?style=flat-square)
 
 ```groovy
 	allprojects {
@@ -156,6 +158,6 @@ Add the JitPack repository to your root build.gradle:
 Add the Gradle dependency:
 ```groovy
 	dependencies {
-		compile 'com.github.amitclickapps:pubnub-util:1.0.1'
+		compile 'com.github.amitclickapps:pubnub-util:latest'
 	}
 ```
