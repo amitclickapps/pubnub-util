@@ -2,7 +2,7 @@ PubnubUtil ![](https://jitpack.io/v/amitclickapps/pubnub-util.svg?style=flat-squ
 ------
 ### PubnubConfiguration
 ```
-        PubnubConfiguration pubnubConfiguration = new PubnubConfiguration.Builder()
+        new PubnubConfiguration.Builder()
                 .keys("publish_key", "subscribe_key")
                 .gcm(true, "senderId")
                 .build();
