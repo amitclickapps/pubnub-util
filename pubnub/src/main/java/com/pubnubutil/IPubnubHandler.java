@@ -28,15 +28,14 @@ public interface IPubnubHandler {
 
     IPubnubHandler publish();
 
-    public interface IChannel extends IPubnubHandler {
+    public interface IChannel  {
 
-        ISubscribe channels(@NonNull String[] channels);
+        void channels(@NonNull String[] channels);
 
-        ISubscribe channels(@NonNull String channels);
+        void channels(@NonNull String channels);
 
-        ISubscribe channels(@NonNull List<String> channels);
+        void channels(@NonNull List<String> channels);
 
-        void build();
     }
 
 //    public interface IMessage extends IPubnubHandler {

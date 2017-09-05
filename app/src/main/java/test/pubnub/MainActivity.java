@@ -5,7 +5,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.pubnub.api.models.consumer.PNStatus;
 import com.pubnubutil.PubNubManager;
+import com.pubnubutil.PubNubParam;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-
     }
 
 }

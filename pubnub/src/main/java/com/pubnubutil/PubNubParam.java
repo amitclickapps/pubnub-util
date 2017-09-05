@@ -15,22 +15,22 @@ import java.util.List;
  * The type Pub nub param.
  */
 public class PubNubParam implements Serializable {
-    private Context context;
-    private Activity activity;
-    private Event event = Event.SUB;
-    private String[] channels;
-    private OnPushMessageListener listener;
-    private Object message;
-    private String senderId;
-    private String uuid = "";
+    protected Context context;
+    protected Activity activity;
+    protected Event event = Event.SUB;
+    protected String[] channels;
+    protected OnPushMessageListener listener;
+    protected Object message;
+    protected String senderId;
+    protected String uuid = "";
 
     /*History*/
-    private int count;
-    private boolean includeTimeToken = true;
-    private boolean reverse = false;
-    private Long start = 0L;
-    private Long end = 0L;
-    private Dialog dialog;
+    protected int count;
+    protected boolean includeTimeToken = true;
+    protected boolean reverse = false;
+    protected Long start = 0L;
+    protected Long end = 0L;
+    protected Dialog dialog;
 
     public enum Event {
         /**
@@ -171,13 +171,10 @@ public class PubNubParam implements Serializable {
          * Instantiates a new Builder.
          *
          * @param context the context
-         * @param event   the event
          */
-        public Builder(@NonNull Context context,
-                       @NonNull PubNubParam.Event event) {
+        public Builder(@NonNull Context context) {
             pubNubParam = new PubNubParam();
             pubNubParam.context = context;
-            pubNubParam.event = event;
             PubNubConstant.BROADCAST = context.getPackageName() + ".pubnub";
             PubNubConstant.LOCAL_BROADCAST = context.getPackageName() + ".local.pubnub";
         }
@@ -186,187 +183,56 @@ public class PubNubParam implements Serializable {
          * Instantiates a new Builder.
          *
          * @param context the context
-         * @param event   the event
          */
-        public Builder(@NonNull Activity context,
-                       @NonNull PubNubParam.Event event) {
+        public Builder(@NonNull Activity context) {
             pubNubParam = new PubNubParam();
             pubNubParam.context = context;
             pubNubParam.activity = context;
-            pubNubParam.event = event;
             PubNubConstant.BROADCAST = context.getPackageName() + ".pubnub";
             PubNubConstant.LOCAL_BROADCAST = context.getPackageName() + ".local.pubnub";
         }
 
-        /**
-         * Callback builder.
-         *
-         * @param callback the callback
-         * @return the builder
-         */
-        public Builder callback(@NonNull PubNubParam.OnPushMessageListener callback) {
-            pubNubParam.listener = callback;
-            return this;
-        }
-
-        /**
-         * Channels builder.
-         *
-         * @param channels the channels
-         * @return the builder
-         */
-        public Builder channels(@NonNull String[] channels) {
-            pubNubParam.channels = channels;
-            return this;
-        }
-
-        /**
-         * Channels builder.
-         *
-         * @param channels the channels
-         * @return the builder
-         */
-        // comma seprate
-        public Builder channels(@NonNull String channels) {
-            pubNubParam.channels = TextUtils.split(channels, ",");
-            return this;
-        }
-
-        public Builder message(@NonNull Object message) {
-            pubNubParam.message = message;
-            return this;
-        }
-
-        /**
-         * Channels builder.
-         *
-         * @param channels the channels
-         * @return the builder
-         */
-        public Builder channels(@NonNull List<String> channels) {
-            List<String> list = new ArrayList<>(channels);
-            if (!list.isEmpty()) {
-                String[] temp = new String[list.size()];
-                temp = list.toArray(temp);
-                pubNubParam.channels = temp;
-            }
-            return this;
-        }
-
-        public Builder progressDialog(@NonNull Dialog progressDialog) {
-            pubNubParam.dialog = progressDialog;
-            return this;
-        }
-
-        public History fetchHistory() {
-            return new History(pubNubParam);
-        }
-
-        /**
-         * Build.
-         */
-        public PubNubParam build() {
-            Pubnub pubNub = new Pubnub(pubNubParam);
-            pubNub.handleEvent(pubNubParam);
-            return pubNubParam;
-        }
-
-        public List<String> getSubscribedList() {
-            pubNubParam.event = PubNubParam.Event.SUB_LIST;
+        public List<String> getScribeList() {
+            pubNubParam.event = Event.SUB_LIST;
             Pubnub pubNub = new Pubnub(pubNubParam);
             return (List<String>) pubNub.handleEvent(pubNubParam);
         }
-    }
 
-
-    public static class History {
-        PubNubParam pubNubParam;
-
-        public History(PubNubParam param) {
-            pubNubParam = param;
+        public SubScribeBuilder subScribe() {
+            pubNubParam.event = Event.SUB;
+            return new SubScribeBuilder(pubNubParam);
         }
 
-        public History historyCount(int count) {
-            pubNubParam.count = count;
-            return this;
+        public SubScribeBuilder unSubScribe() {
+            pubNubParam.event = Event.UNSUB;
+            return new SubScribeBuilder(pubNubParam);
         }
 
-        public History includeTimeToken(boolean includeTimeToken) {
-            pubNubParam.includeTimeToken = includeTimeToken;
-            return this;
+        public SubScribeBuilder unSubScribeAll() {
+            pubNubParam.event = Event.UNSUBALL;
+            return new SubScribeBuilder(pubNubParam);
         }
 
-        public History isHistoryReverse(boolean reverse) {
-            pubNubParam.reverse = reverse;
-            return this;
+        public PublishBuilder publish() {
+            pubNubParam.event = Event.PUB;
+            return new PublishBuilder(pubNubParam);
         }
 
-        public History startDate(Long start) {
-            pubNubParam.start = start;
-            return this;
+        public HistoryBuilder history() {
+            pubNubParam.event = Event.CHAT_HISTORY;
+            return new HistoryBuilder(pubNubParam);
         }
 
-        public History endDate(Long end) {
-            pubNubParam.end = end;
-            return this;
-        }
-
-        /**
-         * Build.
-         */
-        public PubNubParam build() {
+        public void enableGCM() {
+            pubNubParam.event = Event.ENABLE_GCM;
             Pubnub pubNub = new Pubnub(pubNubParam);
             pubNub.handleEvent(pubNubParam);
-            return pubNubParam;
-        }
-    }
-
-    public static class Test implements IPubnubHandler,
-            IPubnubHandler.IChannel {
-
-        @Override
-        public IPubnubHandler subscribe() {
-            return this;
         }
 
-        @Override
-        public IUnSubscribe unSubscribe() {
-            return (IUnSubscribe) this;
-        }
-
-        @Override
-        public IPubnubHandler unSubscribeAll() {
-            return this;
-        }
-
-        @Override
-        public IPubnubHandler subScribeList() {
-            return this;
-        }
-
-        @Override
-        public IPubnubHandler publish() {
-            return this;
-        }
-
-        @Override
-        public ISubscribe channels(@NonNull String[] channels) {
-            return (ISubscribe) this;
-        }
-
-        @Override
-        public ISubscribe channels(@NonNull String channels) {
-            return (ISubscribe) this;
-        }
-
-        @Override
-        public ISubscribe channels(@NonNull List<String> channels) {
-            return (ISubscribe) this;
-        }
-
-        @Override
-        public void build() {
-
+        public void disableGCM() {
+            pubNubParam.event = Event.ENABLE_GCM;
+            Pubnub pubNub = new Pubnub(pubNubParam);
+            pubNub.handleEvent(pubNubParam);
         }
     }
 

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -399,7 +400,13 @@ public class Pubnub {
 
         @Override
         public void status(com.pubnub.api.PubNub pubnub, PNStatus status) {
-//            ApplicationUtils.Log.i(MessageFormat.format(FORMAT, status.getStatusCode(), status.getErrorData().getInformation()));
+            if (BuildConfig.DEBUG) {
+                Log.d(getClass().getSimpleName(), MessageFormat.format(FORMAT, status.getStatusCode(), status.getErrorData().getInformation()));
+            }
+            if (pubNubParam.listener != null) {
+                String channel = TextUtils.join(",", status.getAffectedChannels());
+                pubNubParam.listener.onSuccess(channel, status);
+            }
             // the status object returned is always related to subscribe but could contain
             // information about subscribe, heartbeat, or errors
             // use the operationType to switch on different options
