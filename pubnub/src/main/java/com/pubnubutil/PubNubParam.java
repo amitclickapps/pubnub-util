@@ -2,7 +2,6 @@ package com.pubnubutil;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -319,6 +318,55 @@ public class PubNubParam implements Serializable {
             Pubnub pubNub = new Pubnub(pubNubParam);
             pubNub.handleEvent(pubNubParam);
             return pubNubParam;
+        }
+    }
+
+    public static class Test implements IPubnubHandler,
+            IPubnubHandler.IChannel {
+
+        @Override
+        public IPubnubHandler subscribe() {
+            return this;
+        }
+
+        @Override
+        public IUnSubscribe unSubscribe() {
+            return (IUnSubscribe) this;
+        }
+
+        @Override
+        public IPubnubHandler unSubscribeAll() {
+            return this;
+        }
+
+        @Override
+        public IPubnubHandler subScribeList() {
+            return this;
+        }
+
+        @Override
+        public IPubnubHandler publish() {
+            return this;
+        }
+
+        @Override
+        public ISubscribe channels(@NonNull String[] channels) {
+            return (ISubscribe) this;
+        }
+
+        @Override
+        public ISubscribe channels(@NonNull String channels) {
+            return (ISubscribe) this;
+        }
+
+        @Override
+        public ISubscribe channels(@NonNull List<String> channels) {
+            return (ISubscribe) this;
+        }
+
+        @Override
+        public void build() {
+
         }
     }
 

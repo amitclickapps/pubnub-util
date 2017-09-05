@@ -59,4 +59,14 @@ public class PubNubManager {
         return new PubNubParam.Builder(context, event);
     }
 
+    /**
+     * With builder.
+     *
+     * @param context the context
+     * @return the builder
+     */
+    public static PubNubParam.Test with(@NonNull Activity context) {
+        return new PubNubParam.Test();
+    }
+
 }
