@@ -3,16 +3,12 @@ package test.pubnub;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ImageView;
+import android.util.Log;
 
-import com.bumptech.glide.Glide;
-import com.pubnub.api.models.consumer.PNStatus;
 import com.pubnubutil.PubNubManager;
 import com.pubnubutil.PubNubParam;
+import com.pubnubutil.PubnubConfiguration;
 
-import java.util.List;
-
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -20,7 +16,6 @@ import butterknife.ButterKnife;
  */
 
 public class MainActivity extends AppCompatActivity {
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
