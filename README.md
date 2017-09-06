@@ -6,6 +6,7 @@ PubnubUtil ![](https://jitpack.io/v/amitclickapps/pubnub-util.svg?style=flat-squ
         new PubnubConfiguration.Builder()
                 .keys("publish_key", "subscribe_key")
                 .gcm(true, "senderId")
+                .isDebug(BuildConfig.DEBUG)
                 .build();
 ```
 ### PubnubManager Subscribe
